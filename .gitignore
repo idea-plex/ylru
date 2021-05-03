@@ -2,9 +2,11 @@ node_modules
 coverage
 .cache
 .vscode
-./*.tgz
-./index.d.ts
-./index.js
-./index.js.map
-./index.mjs
-./index.mjs.map
+ideaplex-ylru-*.tgz
+index.d.ts
+index.js
+index.js.map
+index.mjs
+index.mjs.map
+index.js
+ylru-*.tgz
