@@ -15,34 +15,34 @@ describe('ylru tests', () => {
     test('key is string', () => {
       const lru = new LRU(10);
       lru.set('foo', 'bar');
-      expect(lru.get('foo')).toEqual('bar');
+      expect(lru.get('foo')).toBe('bar');
     });
 
     test('key is number', () => {
       const lru = new LRU(10);
       lru.set(1, 'bar');
-      expect(lru.get(1)).toEqual('bar');
+      expect(lru.get(1)).toBe('bar');
     });
 
     test('key is obj', () => {
       const lru = new LRU<string, Record<string, string>>(10);
       const obj = { hi: 'foo' };
       lru.set(obj, 'bar');
-      expect(lru.get(obj)).toEqual('bar');
+      expect(lru.get(obj)).toBe('bar');
     });
 
     test('value is empty value', () => {
       const lru = new LRU(10);
       lru.set('foo', 'bar');
-      expect(lru.get('foo')).toStrictEqual('bar');
+      expect(lru.get('foo')).toBe('bar');
       lru.set('foo', null);
       expect(lru.get('foo')).toBeNull();
       lru.set('foo', undefined);
       expect(lru.get('foo')).toBeUndefined();
       lru.set('foo', 0);
-      expect(lru.get('foo')).toStrictEqual(0);
+      expect(lru.get('foo')).toBe(0);
       lru.set('foo', '');
-      expect(lru.get('foo')).toStrictEqual('');
+      expect(lru.get('foo')).toBe('');
     });
 
     test('value is obj', () => {
@@ -56,37 +56,37 @@ describe('ylru tests', () => {
       lru.set('foo1', 'bar');
       lru.set('foo', 'bar', { maxAge: 2 });
       // @ts-ignore 
-      expect(lru.cache.size).toStrictEqual(0);
+      expect(lru.cache.size).toBe(0);
       // @ts-ignore
-      expect(lru._cache.size).toStrictEqual(2);
+      expect(lru._cache.size).toBe(2);
 
       await sleep(10);
       expect(lru.get('foo')).toBeUndefined();
-      expect(lru.get('foo1')).toStrictEqual('bar');
+      expect(lru.get('foo1')).toBe('bar');
       // @ts-ignore
-      expect(lru['cache'].size).toStrictEqual(1);
+      expect(lru['cache'].size).toBe(1);
       // @ts-ignore
-      expect(lru._cache.size).toStrictEqual(2);
+      expect(lru._cache.size).toBe(2);
 
       await sleep(10);
       expect(lru.get('foo')).toBeUndefined();
-      expect(lru.get('foo1')).toStrictEqual('bar');
+      expect(lru.get('foo1')).toBe('bar');
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(1);
+      expect(lru.cache.size).toBe(1);
       // @ts-ignore
-      expect(lru._cache.size).toStrictEqual(2);
+      expect(lru._cache.size).toBe(2);
 
       lru.set('foo2', 'bar');
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(0);
+      expect(lru.cache.size).toBe(0);
       // @ts-ignore
-      expect(lru._cache.size).toStrictEqual(2);
+      expect(lru._cache.size).toBe(2);
       expect(lru.get('foo')).toBeUndefined();
-      expect(lru.get('foo2')).toStrictEqual('bar');
+      expect(lru.get('foo2')).toBe('bar');
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(1);
+      expect(lru.cache.size).toBe(1);
       // @ts-ignore
-      expect(lru._cache.size).toStrictEqual(2);
+      expect(lru._cache.size).toBe(2);
     });
 
     test('item count overflow max', () => {
@@ -96,50 +96,50 @@ describe('ylru tests', () => {
       }
       // cache should be new Map()
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(0);
+      expect(lru.cache.size).toBe(0);
       // @ts-ignore
-      expect(lru._cache.size).toStrictEqual(10);
+      expect(lru._cache.size).toBe(10);
       for (let i = 10; i < 20; i++) {
         lru.set(i, i);
       }
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(0);
+      expect(lru.cache.size).toBe(0);
       // @ts-ignore
-      expect(lru._cache.size).toStrictEqual(10);
+      expect(lru._cache.size).toBe(10);
       expect(lru.get(0)).toBeUndefined();
       expect(lru.get(1)).toBeUndefined();
       expect(lru.get(9)).toBeUndefined();
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(0);
+      expect(lru.cache.size).toBe(0);
       // @ts-ignore
-      expect(lru._cache.size).toStrictEqual(10);
-      expect(lru.get(10)).toStrictEqual(10);
+      expect(lru._cache.size).toBe(10);
+      expect(lru.get(10)).toBe(10);
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(1);
+      expect(lru.cache.size).toBe(1);
       // @ts-ignore
-      expect(lru.get(11)).toStrictEqual(11);
+      expect(lru.get(11)).toBe(11);
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(2);
-      expect(lru.get(19)).toStrictEqual(19);
+      expect(lru.cache.size).toBe(2);
+      expect(lru.get(19)).toBe(19);
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(3);
+      expect(lru.cache.size).toBe(3);
 
       lru.set(20, 20);
       lru.set(20, 20);
-      expect(lru.get(20)).toStrictEqual(20);
-      expect(lru.get(10)).toStrictEqual(10);
+      expect(lru.get(20)).toBe(20);
+      expect(lru.get(10)).toBe(10);
 
       for (let i = 20; i < 27; i++) {
         lru.set(i, i);
       }
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(0);
+      expect(lru.cache.size).toBe(0);
       // @ts-ignore
-      expect(lru._cache.size).toStrictEqual(10);
-      expect(lru.get(10)).toStrictEqual(10);
-      expect(lru.get(26)).toStrictEqual(26);
+      expect(lru._cache.size).toBe(10);
+      expect(lru.get(10)).toBe(10);
+      expect(lru.get(26)).toBe(26);
       // @ts-ignore
-      expect(lru.cache.size).toStrictEqual(2);
+      expect(lru.cache.size).toBe(2);
     });
   });
 
@@ -150,8 +150,8 @@ describe('ylru tests', () => {
         lru.set(1, 0, { maxAge });
         lru.set('k2', 'v2', { maxAge });
         lru.set('k3', { foo: 'bar' }, { maxAge });
-        expect(lru.get(1)).toStrictEqual(0);
-        expect(lru.get('k2')).toStrictEqual('v2');
+        expect(lru.get(1)).toBe(0);
+        expect(lru.get('k2')).toBe('v2');
         expect(lru.get('k3')).toEqual({ foo: 'bar' });
 
         await sleep(maxAge + 10);
@@ -172,8 +172,8 @@ describe('ylru tests', () => {
         lru.set(1, 0, { maxAge });
         lru.set('k2', 'v2', { maxAge });
         lru.set('k3', { foo: 'bar' }, { maxAge });
-        expect(lru.get(1)).toStrictEqual(0);
-        expect(lru.get('k2')).toStrictEqual('v2');
+        expect(lru.get(1)).toBe(0);
+        expect(lru.get('k2')).toBe('v2');
         expect(lru.get('k3')).toEqual({ foo: 'bar' });
 
         sleep(maxAge - 10);
@@ -205,11 +205,11 @@ describe('ylru tests', () => {
       lru.set('foo2', 'bar', { maxAge: 100 });
       lru.get('foo1', { maxAge: 100 });
       await sleep(50);
-      expect(lru.get('foo1')).toStrictEqual('bar');
-      expect(lru.get('foo2', { maxAge: 0 })).toStrictEqual('bar');
+      expect(lru.get('foo1')).toBe('bar');
+      expect(lru.get('foo2', { maxAge: 0 })).toBe('bar');
       await sleep(120);
       expect(lru.get('foo')).toBeFalsy();
-      expect(lru.get('foo2')).toStrictEqual('bar');
+      expect(lru.get('foo2')).toBe('bar');
       expect(lru.keys()).toEqual([ 'foo2' ]);
     });
   });
@@ -224,7 +224,7 @@ describe('ylru tests', () => {
       lru.set('foo5', 'bar');
       lru.set('foo6', 'bar');
       // will be more than 5 because ylru's cache strategy
-      expect(lru.keys().length).toStrictEqual(6);
+      expect(lru.keys().length).toBe(6);
     });
 
     test('should work with expired', async () => {
@@ -236,9 +236,60 @@ describe('ylru tests', () => {
       lru.set('foo5', 'bar', { maxAge: 200 });
       lru.set('foo6', 'bar', { maxAge: 200 });
       await sleep(120);
-      expect(lru.keys().length).toStrictEqual(3);
+      expect(lru.keys().length).toBe(3);
       await sleep(120);
-      expect(lru.keys().length).toStrictEqual(0);
+      expect(lru.keys().length).toBe(0);
+    });
+  });
+
+  describe('clear', () => {
+    test('should remove all items', () => {
+      const lru = new LRU(5);
+      lru.set('foo1', 'bar', { maxAge: 100 });
+      lru.set('foo2', 'bar', { maxAge: 100 });
+      expect(lru['cache'].size).toBe(2);
+      lru.clear();
+      expect(lru['cache'].size).toBe(0);
+    })
+  });
+
+  describe('has', () => {
+    test('should show items that exist', () => {
+      const lru = new LRU(5);
+      lru.set('foo1', 'bar', { maxAge: 100 });
+      lru.set('foo2', 'bar', { maxAge: 100 });
+      expect(lru.has('foo1')).toBe(true);      
+      expect(lru.has('foo2')).toBe(true);
+      lru.clear();
+      expect(lru.has('foo1')).toBe(false);      
+      expect(lru.has('foo2')).toBe(false);      
+    })
+  });
+
+  describe('remove', () => {
+    test('should remove items', () => {
+      const lru = new LRU(5);
+      lru.set('foo1', 'bar', { maxAge: 100 });
+      lru.set('foo2', 'bar', { maxAge: 100 });
+      expect(lru.has('foo1')).toBe(true);      
+      expect(lru.has('foo2')).toBe(true);
+      lru.remove('foo1');
+      expect(lru.has('foo1')).toBe(false);      
+      expect(lru.has('foo2')).toBe(true);
+      lru.remove('foo2');
+      expect(lru.has('foo1')).toBe(false);      
+      expect(lru.has('foo2')).toBe(false);      
+    });
+    test('should also remove items from secondary cache', () =>{
+      const lru = new LRU(3);
+      lru.set('foo1', 'bar', { maxAge: 100 });
+      lru.set('foo2', 'bar', { maxAge: 100 });
+      lru.set('foo3', 'bar', { maxAge: 100 });
+      lru.set('foo4', 'bar', { maxAge: 100 });
+      expect(lru['_cache'].size).toBe(3);
+      expect(lru['cache'].size).toBe(1);
+      lru.remove('foo2');
+      expect(lru['_cache'].size).toBe(2);
     });
   });
 });

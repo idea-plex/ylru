@@ -98,6 +98,26 @@ export class LRU<T, K = string | number> {
   
       return Array.from(cacheKeys.keys());
     }
+
+    has(key: K): boolean {
+      return this.cache.has(key) || this._cache.has(key);
+    }
+
+    remove(key: K): void {
+      if (this.cache.delete(key)) {
+        this.size--;
+      }
+
+      if (this._cache.delete(key)) {
+        this.size--;
+      }
+    }
+
+    clear(): void {
+      this.cache.clear();
+      this._cache.clear();
+      this.size = 0;
+    }
   
     private update(key: K, item: Entry<T>): void {
       this.cache.set(key, item);
