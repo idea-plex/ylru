@@ -1,6 +1,8 @@
-# ylru
+# @idexplex/ylru 
 
-[![NPM version][npm-image]][npm-url]
+Typescript version.
+
+<!-- [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][codecov-image]][codecov-url]
 [![David deps][david-image]][david-url]
@@ -18,7 +20,7 @@
 [snyk-image]: https://snyk.io/test/npm/ylru/badge.svg?style=flat-square
 [snyk-url]: https://snyk.io/test/npm/ylru
 [download-image]: https://img.shields.io/npm/dm/ylru.svg?style=flat-square
-[download-url]: https://npmjs.org/package/ylru
+[download-url]: https://npmjs.org/package/ylru -->
 
 **hashlru inspired**
 
