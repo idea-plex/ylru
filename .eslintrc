@@ -1,9 +1,15 @@
 {
-  "extends": "eslint-config-egg",
+  "root": true,
+  "extends": "@ideaplex/eslint-config",
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": [
+      "./tsconfig.lib.json",
+      "./tsconfig.spec.json"
+    ]
   },
   "env": {
-    "node": true
+    "node": true,
+    "jest": true
   }
 }

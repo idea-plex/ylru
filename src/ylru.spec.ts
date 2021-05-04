@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 
 import { LRU } from './ylru';
-import { describe, expect, test } from '@jest/globals';
 
 const sleep = (ms: number): void => {
   const stop = Date.now() + ms;

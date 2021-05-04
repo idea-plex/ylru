@@ -26,7 +26,7 @@ export default [
     ],
   }),
   bundle({
-    plugins: [ dts() ],
+    plugins: [ dts({tsconfig: 'tsconfig.lib.json'}) ],
     output: {
       file: `${name}.d.ts`,
       format: 'es',

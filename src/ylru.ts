@@ -20,7 +20,7 @@ export class LRU<T, K = string | number> {
       const maxAge = options && options.maxAge;
       
       // only call Date.now() when necessary
-      let now = Date.now();
+      const now = Date.now();
 
       if (item) {
 
