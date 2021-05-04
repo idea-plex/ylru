@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-
 import { LRU } from './ylru';
 
 const sleep = (ms: number): void => {
